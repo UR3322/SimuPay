@@ -1,113 +1,143 @@
-# SimuPay — MERN Stack P2P Transfer System
+# SimuPay - Payment Simulation Application
 
-A responsive, secure Peer-to-Peer (P2P) digital transfer simulation system built with the MERN stack.
-
-## Author
-* **Name:** Muhammad Usman
-* **Institution:** FAST-NUCES
-* **Specialization:** Web Engineering
-
----
-
-## Table of Contents
-* [About the Project](#about-the-project)
-* [Tech Stack](#tech-stack)
-* [Features](#features)
-* [Database Design](#database-design)
-* [Environment Variables](#environment-variables)
-* [Installation and Usage](#installation-and-usage)
-* [Deployment](#deployment)
-
----
-
-## About the Project
-
-SimuPay is a digital transfer application that handles user authentication, transaction history tracking, and real-time financial simulations. The interface features a responsive, dark-themed layout built with accessible CSS layouts (Flexbox/CSS Grid).
-
----
-
-## Tech Stack
-
-* **MongoDB Atlas:** Cloud NoSQL database for flexible and scalable data persistence.
-* **Express.js:** Backend framework for fast, robust RESTful APIs.
-* **React.js:** Frontend library for dynamic, component-driven user interfaces.
-* **Node.js:** Server-side JavaScript runtime environment.
-
----
+A full-stack MERN (MongoDB, Express, React, Node.js) application for simulating payment transactions. SimuPay allows users to register, login, and simulate payment transactions with virtual money.
 
 ## Features
 
-* **User Authentication:** Secure authentication and authorization using JSON Web Tokens (JWT) and bcrypt password hashing.
-* **Core P2P Logic:** Transfers include an automated 2% system calculation fee before updating user balances atomically.
-* **Transaction History:** Ledger tracking that stores transaction volume history with user-referenced aggregation.
-* **Security & Validation:** Middleware validation against race conditions and invalid requests.
+- User authentication (Register/Login with JWT)
+- Payment simulation
+- Transaction history
+- Dashboard with balance tracking
 
----
+## Tech Stack
 
-## Database Design
+- **Frontend**: React 18, React Router DOM, Axios
+- **Backend**: Node.js, Express.js, MongoDB (Mongoose)
+- **Authentication**: JWT (JSON Web Tokens)
+- **Password Hashing**: bcryptjs
 
-The data layer is decoupled from transaction actions using data referencing rather than embedding, ensuring lightweight user documents:
+## Project Structure
 
-* **User Schema:** Stores account credentials and balances.
-* **Transaction Schema:** Stores the `sender` and `receiver` ObjectIds, amount, computed fees, and status.
-
----
-
-## Environment Variables
-
-### Backend `.env`
-Create a `.env` file in the `backend/` directory:
-```text
-PORT=5000
-MONGO_URI=mongodb+srv://<username>:<password>@cluster0.abc12.mongodb.net/simupay?retryWrites=true&w=majority
-JWT_SECRET=your_jwt_secret_key
-CORS_ORIGIN=https://your-frontend-url.vercel.app
+```
+simupay/
+├── backend/              # Express.js backend API
+│   ├── middleware/      # Auth & validation middleware
+│   ├── models/           # Mongoose models (User, Transaction)
+│   ├── routes/          # API routes (auth, simulate, transaction)
+│   ├── utils/            # Utility functions
+│   ├── server.js        # Main server file
+│   └── package.json     # Backend dependencies
+├── frontend/            # React frontend application
+│   ├── src/
+│   │   ├── components/  # React components
+│   │   ├── pages/       # Page components
+│   │   ├── App.js       # Main App component
+│   │   └── App.css      # Global styles
+│   └── package.json     # Frontend dependencies
+├── package.json         # Root package.json
+└── .gitignore           # Git ignore file
 ```
 
-### Frontend `.env`
-Create a `.env` file in the `frontend/` directory:
-```text
-REACT_APP_API_URL=https://your-backend-url.onrender.com
-# Use VITE_API_URL instead if you are using Vite
-```
+## Getting Started
 
----
+### Prerequisites
 
-## Installation and Usage
+- Node.js (v14 or higher)
+- MongoDB (local or Atlas)
 
-### 1. Clone the Repository
-```bash
-git clone https://github.com/your-username/fintechflow.git
-cd fintechflow
-```
+### Installation
 
-### 2. Install Dependencies
-```bash
-# Install server dependencies
-cd backend
-npm install
+1. Clone the repository
 
-# Install client dependencies
-cd ../frontend
-npm install
-```
+2. Install backend dependencies:
+   ```bash
+   cd backend
+   npm install
+   ```
 
-### 3. Run Locally
-```bash
-# Run the backend
-cd backend
-npm start
+3. Install frontend dependencies:
+   ```bash
+   cd frontend
+   npm install
+   ```
 
-# Run the frontend
-cd ../frontend
-npm start
-```
+4. Create `.env` file in backend directory:
+   ```env
+   MONGO_URI=your_mongodb_connection_string
+   JWT_SECRET=your_jwt_secret_key
+   PORT=5000
+   ```
 
----
+5. Start backend server:
+   ```bash
+   cd backend
+   npm start
+   ```
+
+6. Start frontend (in a new terminal):
+   ```bash
+   cd frontend
+   npm start
+   ```
+
+The frontend will open at `http://localhost:3000` and the backend runs at `http://localhost:5000`.
+
+## API Endpoints
+
+### Authentication
+- `POST /api/auth/register` - Register new user
+- `POST /api/auth/login` - Login user
+- `GET /api/auth/user` - Get current user
+
+### Transactions
+- `GET /api/transactions` - Get user transactions
+- `POST /api/transactions` - Create new transaction
+
+### Simulation
+- `POST /api/simulate/payment` - Simulate payment
 
 ## Deployment
 
-The application is configured for deployment using modern cloud platforms:
+### Deploying to GitHub
 
-* **Backend Deployment:** Render (Web Service using the Node runtime environment).
-* **Frontend Deployment:** Vercel (React client application deployment).
+1. Create a new repository on GitHub
+2. Initialize git in the project:
+   ```bash
+   git init
+   ```
+
+3. Add all files:
+   ```bash
+   git add .
+   ```
+
+4. Create initial commit:
+   ```bash
+   git commit -m "Initial commit"
+   ```
+
+5. Add remote repository:
+   ```bash
+   git remote add origin https://github.com/yourusername/simupay.git
+   ```
+
+6. Push to GitHub:
+   ```bash
+   git push -u origin main
+   ```
+
+### Deploying to Production
+
+For production deployment, you can use services like:
+- **Frontend**: Vercel, Netlify
+- **Backend**: Render, Heroku, Railway, or Fly.io
+
+See deployment guides for each platform for detailed instructions.
+
+## License
+
+ISC
+
+## Author
+
+Your Name
