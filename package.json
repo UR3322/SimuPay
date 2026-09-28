@@ -9,8 +9,8 @@
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": ["mern", "payment", "simulation", "react", "nodejs"],
-  "author": "",
-  "license": "ISC",
+  "author": "Muhammad Usman",
+  "license": "MIT",
   "devDependencies": {
     "concurrently": "^8.2.2"
   }
